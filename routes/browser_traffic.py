@@ -4,7 +4,7 @@ from data.browser_traffic_data import browser_traffic_data
 
 router = APIRouter()
 
-@router.get("/traffic-source")
+@router.get("/browser-traffic")
 def get_browser_traffic(country: Optional[str] = None):
     if country:
         return browser_traffic_data.get(country, [])
