@@ -11,6 +11,7 @@ def get_browser_traffic(country: Optional[str] = None):
     else:
         result = {}
 
+        # aggregate raw values
         for country_data in browser_traffic_data.values():
             for item in country_data:
                 name = item["name"]
@@ -23,4 +24,15 @@ def get_browser_traffic(country: Optional[str] = None):
 
                 result[name]["value"] += item["value"]
 
-        return list(result.values())
+        # normalize to 100%
+        total = sum(item["value"] for item in result.values())
+
+        normalized = [
+            {
+                "name": item["name"],
+                "value": round((item["value"] / total) * 100, 1)
+            }
+            for item in result.values()
+        ]
+
+        return normalized
