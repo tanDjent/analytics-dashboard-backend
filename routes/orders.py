@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Query
 from typing import Optional
 from data.orders_data import orders_data
+from data.customers_data import customers_data
 
 router = APIRouter()
 
@@ -12,6 +13,19 @@ ALLOWED_SORT_FIELDS = {
 }
 
 ALLOWED_STATUS = {"Completed", "Pending", "Cancelled"}
+
+
+def attach_customer_names(orders, customers):
+    """Return orders enriched with `customer_name`, joined from customers by email."""
+    name_by_email = {c["email"]: c["name"] for c in customers}
+    return [
+        {**o, "customer_name": name_by_email.get(o["customer_email"], "")}
+        for o in orders
+    ]
+
+
+# Enrich once at module load so we don't pay the cost on every request.
+orders_data = attach_customer_names(orders_data, customers_data)
 
 
 @router.get("/orders")
