@@ -10,6 +10,9 @@ ALLOWED_SORT_FIELDS = {
     "total",
     "price",
     "quantity",
+    "customer_name",
+    "customer_email",
+    "product",
 }
 
 ALLOWED_STATUS = {"Completed", "Pending", "Cancelled"}
