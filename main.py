@@ -9,6 +9,7 @@ from routes.visitors import router as visitors
 from routes.orders import router as orders
 from routes.customers import router as customers
 from routes.products import router as products
+from routes.server_health import router as server_health
 app = FastAPI()
 
 app.add_middleware(
@@ -30,3 +31,4 @@ app.include_router(visitors)
 app.include_router(orders)
 app.include_router(customers)
 app.include_router(products)
+app.include_router(server_health)
