@@ -13,7 +13,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173","http://192.168.29.108:5173","http://192.168.1.9:5173"],
+    allow_origins=["http://localhost:5173","https://tandjent.github.io/analytics-dashboard/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
