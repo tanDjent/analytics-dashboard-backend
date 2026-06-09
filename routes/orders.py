@@ -2,6 +2,7 @@ from fastapi import APIRouter, Query
 from typing import Optional
 from data.orders_data import orders_data
 from data.customers_data import customers_data
+import asyncio
 
 router = APIRouter()
 
@@ -17,7 +18,6 @@ ALLOWED_SORT_FIELDS = {
 
 ALLOWED_STATUS = {"Completed", "Pending", "Cancelled"}
 
-
 def attach_customer_names(orders, customers):
     """Return orders enriched with `customer_name`, joined from customers by email."""
     name_by_email = {c["email"]: c["name"] for c in customers}
@@ -32,7 +32,7 @@ orders_data = attach_customer_names(orders_data, customers_data)
 
 
 @router.get("/orders")
-def get_orders_data(
+async def get_orders_data(
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100),
 
@@ -79,7 +79,7 @@ def get_orders_data(
     end = start + limit
 
     paginated = data[start:end]
-
+    await asyncio.sleep(1)
     return {
         "data": paginated,
         "total": total,

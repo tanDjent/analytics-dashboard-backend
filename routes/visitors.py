@@ -1,11 +1,12 @@
 from fastapi import APIRouter
 from typing import Optional
 from data.visitors_data import visitors_data
+import asyncio
 
 router = APIRouter()
 
 @router.get("/visitors")
-def get_visitors(country: Optional[str] = None):
+async def get_visitors(country: Optional[str] = None):
     if country:
         data = visitors_data.get(country, [])
     else:
@@ -48,5 +49,6 @@ def get_visitors(country: Optional[str] = None):
             "change": change,
             "share": share
         })
-
+        
+    await asyncio.sleep(1)
     return final

@@ -18,6 +18,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "https://tandjent.github.io",
+        "http://192.168.1.9:5173"
     ],
     allow_credentials=True,
     allow_methods=["*"],

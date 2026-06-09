@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Query
 from typing import Optional
 from data.products_data import products_data
+import asyncio
 
 router = APIRouter()
 
@@ -16,7 +17,7 @@ ALLOWED_SORT_FIELDS = {
 
 
 @router.get("/products")
-def get_products_data(
+async def get_products_data(
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100),
 
@@ -62,7 +63,7 @@ def get_products_data(
     end = start + limit
 
     paginated = data[start:end]
-
+    await asyncio.sleep(1)
     return {
         "data": paginated,
         "total": total,

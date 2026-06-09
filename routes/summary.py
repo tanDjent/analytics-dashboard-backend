@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from typing import Optional
 from data.sales_data import sales_data
+import asyncio
 
 router = APIRouter()
 
@@ -9,7 +10,7 @@ PREVIOUS_MONTH = "Feb"
 
 
 @router.get("/summary")
-def get_summary(country: Optional[str] = None):
+async def get_summary(country: Optional[str] = None):
     current = {"revenue": 0, "orders": 0}
     previous = {"revenue": 0, "orders": 0}
 
@@ -29,7 +30,8 @@ def get_summary(country: Optional[str] = None):
         if prev == 0:
             return 0
         return round(((curr - prev) / prev) * 100, 1)
-
+    
+    await asyncio.sleep(1)
     return {
         "orders": {
             "value": current["orders"],

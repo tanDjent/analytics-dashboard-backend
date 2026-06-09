@@ -1,12 +1,14 @@
 from fastapi import APIRouter
 from typing import Optional
 from data.browser_traffic_data import browser_traffic_data
+import asyncio
 
 router = APIRouter()
 
 @router.get("/browser-traffic")
-def get_browser_traffic(country: Optional[str] = None):
+async def get_browser_traffic(country: Optional[str] = None):
     if country:
+        await asyncio.sleep(1)
         return browser_traffic_data.get(country, [])
     else:
         result = {}
@@ -34,5 +36,6 @@ def get_browser_traffic(country: Optional[str] = None):
             }
             for item in result.values()
         ]
-
+        
+        await asyncio.sleep(1)
         return normalized
