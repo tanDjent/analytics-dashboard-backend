@@ -19,6 +19,7 @@ app.add_middleware(
         "http://localhost:5173",
         "https://tandjent.github.io",
         "http://192.168.1.9:5173"
+        "https://analytics-dashboard-tandjent.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
